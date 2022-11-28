@@ -99,7 +99,7 @@ convert_to_csv <- function(class_dir, data_dir) {
   file_name_daily  <- paste(class_acronym, station, "daily",  sep = "_")
   
   write.csv(data_yearly, 
-            paste0("../visforce_data/data/clean_data/", 
+            paste0("../visforce_data/data/clean_data/time_series_data/", 
                    class_acronym,
                    "/",
                    file_name_yearly, 
@@ -107,7 +107,7 @@ convert_to_csv <- function(class_dir, data_dir) {
             row.names = FALSE)
   
   write.csv(data_daily, 
-            paste0("../visforce_data/data/clean_data/", 
+            paste0("../visforce_data/data/clean_data/time_series_data/", 
                    class_acronym,
                    "/",
                    file_name_daily, 
@@ -115,7 +115,7 @@ convert_to_csv <- function(class_dir, data_dir) {
             row.names = FALSE)
   
   write.csv(data_yearly_fewer_scen, 
-            paste0("../visforce_data/data/clean_data/", 
+            paste0("../visforce_data/data/clean_data/time_series_data/", 
                    class_acronym,
                    "/",
                    file_name_yearly, 
@@ -123,7 +123,7 @@ convert_to_csv <- function(class_dir, data_dir) {
             row.names = FALSE)
   
   write.csv(data_daily_fewer_scen, 
-            paste0("../visforce_data/data/clean_data/",
+            paste0("../visforce_data/data/clean_data/time_series_data/",
                    class_acronym,
                    "/",
                    file_name_daily, 

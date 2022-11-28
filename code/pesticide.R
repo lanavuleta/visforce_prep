@@ -18,8 +18,11 @@ library(terra)
 library(stars)
 library(dplyr)
 
-pud_folder  <- "../visforce_data/data/raw_data/pesticides/pesticides_projected_2_km2/pud/"
-wpoi_folder <- "../visforce_data/data/raw_data/pesticides/pesticides_projected_2_km2/wpoi/"
+start_folder <- "../visforce_data/data/clean_data/spatial_data/xy_format/"
+
+pud_folder  <- paste0(start_folder, "raster_arcmap/pesticides_projected_km2/pud/")
+wpoi_folder <- paste0(start_folder, "raster_arcmap/pesticides_projected_km2/wpoi/")
+
 
 fungpp <- raster(list.files(pud_folder, ".*fung.*tif$", full.names = T))
 fungww <- raster(list.files(wpoi_folder, ".*fung.*tif$", full.names = T))
@@ -70,17 +73,17 @@ wpoi_data <- fungww %>%
   filter(y >= 49)
 
 write.csv(pud_data, 
-          "../visforce_data/data/clean_data/spatial/pesticides/pud.csv", 
+          paste0(start_folder, "pud.csv"), 
           row.names = F)
 write.csv(wpoi_data, 
-          "../visforce_data/data/clean_data/spatial/pesticides/wpoi.csv", 
+          paste0(start_folder, "wpoi.csv"),  
           row.names = F)
 
 # Check ------------------------------------------------------------------------
 # Sometimes something happened when data was written to csv, and data was 
 # compromised. Need to check if the above worked
-pud  <- read.csv("../visforce_data/data/clean_data/spatial/pesticides/pud.csv")
-wpoi <- read.csv("../visforce_data/data/clean_data/spatial/pesticides/wpoi.csv")
+pud  <- read.csv(paste0(start_folder, "pud.csv"))
+wpoi <- read.csv(paste0(start_folder, "wpoi.csv"))
 
 # Determining the unique lat/long values, determining the distance between
 # those lat/long values, then determining how many different distances there

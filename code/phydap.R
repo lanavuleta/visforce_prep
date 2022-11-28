@@ -8,10 +8,7 @@ phydap_clean <- function(file) {
   
   # Files are consistently named "...../phydap/PHyDAP_RDRS21_hourly_variable.nc"
   variable <- paste("phydap", 
-                    str_split(tail(str_split(tail(str_split(file,
-                                                            "/")[[1]], 1),
-                                             "_")[[1]], 1),
-                              "\\.")[[1]][1], 
+                    gsub("^.*_([a-z]*)\\.nc$", "\\1", file), 
                     sep = "_")
   
   info <- nc_open(file)
@@ -36,6 +33,8 @@ phydap_clean <- function(file) {
            dummy_date = paste(sprintf("%02d", year(date) - (year(date[1])-1)), 
                               sprintf("%03d", yday(date)), 
                               sep = "-"),
+           # Colin asked for the variable to be named "phydap_variable" to make
+           # sure the VF team differentiates between these and CRHM variables
            variable = variable) %>%
     select(date, dummy_date, variable, everything())
   
@@ -44,7 +43,7 @@ phydap_clean <- function(file) {
   
   print("Writing file...")
   write.csv(data_daily, 
-            paste0("../visforce_data/data/clean_data/spatial/phydap/", variable, ".csv"), 
+            paste0("../visforce_data/data/clean_data/phydap_data/", variable, ".csv"), 
             row.names = FALSE)
   print("File write complete.")
   

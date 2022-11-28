@@ -12,8 +12,10 @@ library(rgdal)
 library(dplyr)
 library(terra)
 
+folder <- "../visforce_data/data/clean_data/spatial_data/xy_format/"
+
 # Preparing crop data ----------------------------------------------------------
-crop_wst <- raster("../visforce_data/data/raw_data/masaki/masaki_projected/VSMB_crop_2_PR_84_csxy.tif")
+crop_wst <- raster(paste0(folder, "raster_arcmap/masaki_projected_km2/VSMB_crop_2_PR_84_csxy.tif"))
 crop_wst <- as.data.frame(cbind(coordinates(crop_wst), `crop_wst_mm_yr-1` = values(crop_wst)))
 crop_wst <- filter(crop_wst, y >= 49)
 
@@ -35,7 +37,7 @@ identical(crop_wst$x, pud_data$x)
 identical(crop_wst$y, pud_data$y)
 
 # Preparing grass data ---------------------------------------------------------
-grass_ws <- raster("../visforce_data/data/raw_data/masaki/masaki_projected/VSMB_grass_2_PR_84_csxy.tif")
+grass_ws <- raster(paste0(folder, "raster_arcmap/masaki_projected_km2/VSMB_grass_2_PR_84_csxy.tif"))
 grass_ws <- as.data.frame(cbind(coordinates(grass_ws), `grass_ws_mm_yr-1` = values(grass_ws)))
 grass_ws <- filter(grass_ws, y >= 49)
 
@@ -50,10 +52,15 @@ vsmb_smaller <- vsmb %>%
   # These values are determined from the original VSMB file
   filter((x >= -115.466440 & x <= -110.004764) & (y <= 54.986286))
 
-write.csv(vsmb_smaller, "../visforce_data/data/clean_data/vsmb_recharge.csv", row.names = FALSE)
+write.csv(vsmb_smaller, paste0(folder, "vsmb_recharge.csv"), row.names = FALSE)
 
-all_spatial_data <- full_join(datapp, dataww) %>%
+# All spatial data is good to have in the same file, as cells are in the same
+# position across files and extent of spatial files is consistent
+pud  <- read.csv("../visforce_data/data/clean_data/spatial/pesticides/pud.csv")
+wpoi <- read.csv("../visforce_data/data/clean_data/spatial/pesticides/wpoi.csv")
+
+all_spatial_data <- full_join(pud, wpoi) %>%
   full_join(vsmb)
 
-write.csv(all_spatial_data, "../visforce_data/data/clean_data/all_spatial_data.csv", row.names = FALSE)
+write.csv(all_spatial_data, paste0(folder, "all_spatial_data.csv"), row.names = FALSE)
 
