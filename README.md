@@ -2,9 +2,9 @@
 
 ## Scripts used to prepare Visforce data for upload into dashboard.
 
-Visforce is an integrated modelling tool developed through Prairie Water. Purposes of the Visforce tool: 1) visualize spatial data from modelling, 2) generate time series plots from time-series modelling data, 3) allow access to underlying data via download.
-Spatial and time-series data required tidying for upload. Tidying was performed through these scripts.
-Most of these were written at the beginning of my term before I learned more - they are not as pretty as I would like them to be.
+Visforce is an integrated modelling tool developed through Prairie Water. Purposes of the Visforce tool: 1) visualize spatial data from modelling, 2) generate time series plots from time-series modelling data, 3) allow access to underlying data via download.\
+Spatial and time-series data required tidying for upload. Tidying was performed through these scripts.\
+Most of these were written at the beginning of my term before I learned more - they are not as pretty as I would like them to be.\
 
 ## Highly Qualified Personnel
 
